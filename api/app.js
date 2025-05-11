@@ -1,0 +1,19 @@
+import app from './index.js';
+
+// Start the server
+const start = async () => {
+  try {
+    await app.listen({ port: process.env.PORT })
+    app.log.info(`Server is running on http://localhost:${process.env.PORT}`)
+  } catch (err) {
+    app.log.error(err)
+    process.exit(1)
+  }
+}
+
+start()
+
+export default async function handler(req, reply) {
+  await app.ready()
+  app.server.emit('request', req, reply)
+}
