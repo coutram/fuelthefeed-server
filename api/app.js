@@ -1,7 +1,13 @@
 import app from './index.js';
 
 // Start the server
-const start = async () => {
+// const start = async () => {
+
+// }
+
+
+// Start the server (only for local development)
+if (process.env.NODE_ENV !== 'production') {
   try {
     await app.listen({ port: process.env.PORT })
     app.log.info(`Server is running on http://localhost:${process.env.PORT}`)
@@ -10,8 +16,7 @@ const start = async () => {
     process.exit(1)
   }
 }
-
-start()
+// start()
 
 export default async function handler(req, reply) {
   await app.ready()

@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import Fastify from 'fastify'
 import dotenv from 'dotenv'
 import routes from './routes.js'
-import fastifyCors from 'fastify-cors'
+import cors from '@fastify/cors'
 
 dotenv.config()
 
@@ -10,9 +10,10 @@ const app = Fastify({
   logger: true,
 })
 
-app.register(fastifyCors, {
-  origin: '*', // Adjust this to your needs
-});
+// Register the CORS plugin
+app.register(cors, {
+  origin: '*', // Adjust this to your needs (e.g., specify allowed origins)
+})
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -22,4 +23,6 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 // Register routes
 app.register(routes)
 
+
 export default app;
+
