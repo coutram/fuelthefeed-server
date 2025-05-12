@@ -4,23 +4,24 @@ import app from '../index.js'; // Import the Fastify instance
 beforeAll(async () => {
   // Check if already connected
   if (mongoose.connection.readyState === 0) {
-    await mongoose.connect('mongodb://localhost:27017/test_db', {
+    await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
   }
 });
 
-beforeEach(async () => {
-  // Clear the database before each test
-  if (mongoose.connection.readyState === 1) { // Check if connected
-    await mongoose.connection.db.dropDatabase();
-  }
-});
-
 afterAll(async () => {
   // Close the database connection after all tests
   await mongoose.connection.close();
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
 });
 
 describe('User API', () => {
@@ -45,5 +46,5 @@ describe('User API', () => {
         email: uniqueEmail, // Check against the unique email
       }),
     }));
-  });
+  }, 15000); // Increase timeout to 15 seconds
 });

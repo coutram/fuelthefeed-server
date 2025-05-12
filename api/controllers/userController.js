@@ -8,6 +8,9 @@ export const registerUser = async (req, reply) => {
     await newUser.save();
     reply.status(201).send({ message: 'User registered successfully', user: newUser });
   } catch (error) {
+    if (error.code === 11000) { // Duplicate key error
+      return reply.status(400).send({ error: 'Email already exists' });
+    }
     console.error('Error:', error);
     reply.status(400).send({ error: error.message });
   }
