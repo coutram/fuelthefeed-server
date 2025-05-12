@@ -15,7 +15,7 @@ import app from './index.js';
 //     app.log.error(err)
 //     process.exit(1)
 //   }
-}
+// }
 // start()
 
 export default async function handler(req, reply) {
