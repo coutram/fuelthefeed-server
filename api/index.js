@@ -23,6 +23,10 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 // Register routes
 app.register(routes)
 
+export async function handler(req, reply) {
+  await app.ready()
+  app.server.emit('request', req, reply)
+}
 
 export default app;
 

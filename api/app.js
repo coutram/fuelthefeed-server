@@ -1,6 +1,5 @@
 import app from './index.js';
 
-
 // Start the server (only for local development)
 const start = async () => {
   try {
@@ -14,9 +13,7 @@ const start = async () => {
 
 console.log(process.env.NODE_ENV)
 // Start the server
-if (process.env.NODE_ENV !== 'production') {
-  await start()
-}
+if (process.env.NODE_ENV !== 'production')  await start()
 
 export default async function handler(req, reply) {
   await app.ready()

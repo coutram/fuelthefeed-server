@@ -4,7 +4,7 @@
   "type": "module",
   "main": "api/app.js",
   "scripts": {
-    "start": "NODE_ENV=production node api/app.js",
+    "start": "NODE_ENV=production node api/index.js",
     "dev": "NODE_ENV=development nodemon api/app.js",
     "test": "jest --detectOpenHandles"
   },
